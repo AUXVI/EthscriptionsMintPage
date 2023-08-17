@@ -13,7 +13,7 @@
 
     body {
       background: linear-gradient(to bottom, #c3ff02, #fff);
-    background-attachment: fixed;
+    background-attachment: fixed; /* Set the background to be fixed */
     margin: 0;
     padding: 0;
       font-family: 'Orbitron', sans-serif;
@@ -55,7 +55,7 @@
       max-height: 200px;
       object-fit: cover;
       cursor: pointer;
-      
+      /* Add cursor pointer to indicate clickability */
     }
 
     .image-index {
@@ -74,8 +74,8 @@
     
     @media (max-width: 768px) {
   header {
-    flex-direction: column; 
-    text-align: center; 
+    flex-direction: column; /* Change to column layout on mobile */
+    text-align: center; /* Center text within the header */
   }
 }
 
@@ -155,8 +155,9 @@
     const batchSize = 50; // Number of images to load at once
     let currentIndex = 1; // Starting index for images
     const loadImageBatch = async () => {
-      for (let i = currentIndex; i <= currentIndex + batchSize; i++) {
+      for (let i = currentIndex; i <= Math.min(currentIndex + batchSize, 6969); i++) {
         const imageUrl = `https://beige-electronic-camel-565.mypinata.cloud/ipfs/QmSiGHEHB9RBbZbiVuYdCoDbTKrq7XFw38HdKLF76GyLUJ/${i}.gif`;
+        
         const imageItem = document.createElement('div');
         imageItem.className = 'image-item';
         const image = document.createElement('img');
@@ -175,9 +176,9 @@
         });
         imageGrid.appendChild(imageItem);
       }
-      currentIndex += batchSize + 1;
+      currentIndex = Math.min(currentIndex + batchSize + 1, 6969); // Update currentIndex
       // Hide the "Load More" button if all images have been loaded
-      if (currentIndex > 6969) {
+      if (currentIndex > 6950) {
         loadMoreButton.style.display = 'none';
       }
     };
@@ -214,7 +215,7 @@
           console.log('Connection error:', error);
         });
     });
-    // Function to truncate wallet address
+    // Helper function to truncate wallet address
     function truncateAddress(address) {
       if (!address) return '';
       return address.slice(0, 5) + '...' + address.slice(-4);
@@ -255,6 +256,7 @@
     inscribeButtons.forEach(function(button) {
       button.addEventListener('click', inscribeButtonClick);
     });
+    // Define the click event handler function
     // Define the click event handler function
     async function inscribeButtonClick(dataUri) {
       try {
@@ -301,13 +303,13 @@
             redX.style.display = 'none';
             audioElement.pause();
             audioElement.currentTime = 0;
-          }, 1000);
+          }, 1000); // Hide after 10 seconds
         }
       } catch (error) {
         console.log('Error:', error);
       }
     }
-    loadImageBatch(); 
+    loadImageBatch(); // Initial load
   </script>
 </body>
 
